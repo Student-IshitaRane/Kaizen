@@ -1,0 +1,6 @@
+invoice_id,vendor_id,vendor_name,amount,date,department,description
+INV-001,V-001,ABC Corp,15000.00,2024-01-15,Operations,Office supplies
+INV-002,V-002,XYZ Ltd,25000.00,2024-01-20,IT,Software license
+INV-003,V-001,ABC Corp,12000.00,2024-01-25,HR,Recruitment services
+INV-004,V-003,Tech Solutions,45000.00,2024-02-01,Operations,Equipment purchase
+INV-005,V-002,XYZ Ltd,8000.00,2024-02-05,Finance,Consulting services

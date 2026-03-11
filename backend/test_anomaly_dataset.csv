@@ -1,0 +1,51 @@
+invoice_id,vendor_id,vendor_name,amount,date,department,description,approver_id,currency,posting_date,cost_center,gl_account,approval_date,reference_number,po_number,payment_method,bank_account,status
+INV-001,V-001,ABC Corp,15000.00,2024-01-15,Operations,Office supplies,user-001,USD,2024-01-15,OP001,5000,2024-01-16,REF001,PO001,bank_transfer,ACC001,submitted
+INV-002,V-002,XYZ Ltd,25000.00,2024-01-20,IT,Software license,user-002,USD,2024-01-20,IT001,6000,2024-01-21,REF002,PO002,credit_card,ACC002,submitted
+INV-003,V-001,ABC Corp,12000.00,2024-01-25,HR,Recruitment services,user-003,USD,2024-01-25,HR001,7000,2024-01-26,REF003,PO003,bank_transfer,ACC003,submitted
+INV-004,V-003,Tech Solutions,45000.00,2024-02-01,Operations,Equipment purchase,user-004,USD,2024-02-01,OP002,5000,2024-02-02,REF004,PO004,credit_card,ACC004,submitted
+INV-005,V-002,XYZ Ltd,8000.00,2024-02-05,Finance,Consulting services,user-005,USD,2024-02-05,FIN001,8000,2024-02-06,REF005,PO005,bank_transfer,ACC005,submitted
+# EXACT DUPLICATE - Should trigger high severity anomaly
+INV-001,V-001,ABC Corp,15000.00,2024-01-15,Operations,Office supplies,user-001,USD,2024-01-15,OP001,5000,2024-01-16,REF001,PO001,bank_transfer,ACC001,submitted
+# NEAR DUPLICATE - Similar invoice ID, amount, and date
+INV-001A,V-001,ABC Corp,15200.00,2024-01-16,Operations,Office supplies,user-001,USD,2024-01-16,OP001,5000,2024-01-17,REF001A,PO001A,bank_transfer,ACC001,submitted
+# UNUSUAL AMOUNT - Much higher than vendor's typical range
+INV-006,V-001,ABC Corp,85000.00,2024-02-10,Operations,Special equipment,user-006,USD,2024-02-10,OP003,5000,2024-02-11,REF006,PO006,credit_card,ACC006,submitted
+# ROUND NUMBER - Divisible by 1000
+INV-007,V-004,New Vendor Inc,100000.00,2024-02-12,IT,Server hardware,user-007,USD,2024-02-12,IT002,6000,2024-02-13,REF007,PO007,bank_transfer,ACC007,submitted
+# WEEKEND POSTING - Saturday transaction
+INV-008,V-002,XYZ Ltd,12000.00,2024-02-17,Finance,Consulting,user-008,USD,2024-02-17,FIN002,8000,2024-02-19,REF008,PO008,credit_card,ACC008,submitted
+# RAPID REPEAT - Multiple payments to same vendor in short time
+INV-009,V-003,Tech Solutions,15000.00,2024-02-18,Operations,Software,user-009,USD,2024-02-18,OP004,5000,2024-02-19,REF009,PO009,bank_transfer,ACC009,submitted
+INV-010,V-003,Tech Solutions,18000.00,2024-02-18,Operations,Hardware,user-009,USD,2024-02-18,OP004,5000,2024-02-19,REF010,PO010,bank_transfer,ACC009,submitted
+INV-011,V-003,Tech Solutions,22000.00,2024-02-18,IT,Networking,user-009,USD,2024-02-18,IT003,6000,2024-02-19,REF011,PO011,bank_transfer,ACC009,submitted
+# THRESHOLD AVOIDANCE - Just below $50,000 approval threshold
+INV-012,V-005,Big Corp Ltd,49999.99,2024-02-20,Operations,Major equipment,user-010,USD,2024-02-20,OP005,5000,2024-02-21,REF012,PO012,bank_transfer,ACC010,submitted
+# DORMANT VENDOR - Vendor hasn't been used in 180+ days
+INV-013,V-006,Old Vendor Co,8000.00,2024-02-25,Finance,Old services,user-011,USD,2024-02-25,FIN003,8000,2024-02-26,REF013,PO013,credit_card,ACC011,submitted
+# VENDOR PAYMENT SPIKE - Unusually high monthly spending
+INV-014,V-001,ABC Corp,35000.00,2024-02-28,Operations,Bulk supplies,user-012,USD,2024-02-28,OP006,5000,2024-02-29,REF014,PO014,bank_transfer,ACC012,submitted
+INV-015,V-001,ABC Corp,28000.00,2024-02-28,HR,Training services,user-012,USD,2024-02-28,HR002,7000,2024-02-29,REF015,PO015,bank_transfer,ACC012,submitted
+# DEPARTMENT SPENDING SPIKE - Unusual IT department spending
+INV-016,V-007,IT Solutions Inc,75000.00,2024-03-01,IT,Enterprise software,user-013,USD,2024-03-01,IT004,6000,2024-03-02,REF016,PO016,credit_card,ACC013,submitted
+INV-017,V-007,IT Solutions Inc,65000.00,2024-03-01,IT,Cloud services,user-013,USD,2024-03-01,IT004,6000,2024-03-02,REF017,PO017,credit_card,ACC013,submitted
+# TEMPORAL CLUSTERING - Many transactions in 7 days
+INV-018,V-008,Cluster Vendor,12000.00,2024-03-05,Operations,Service 1,user-014,USD,2024-03-05,OP007,5000,2024-03-06,REF018,PO018,bank_transfer,ACC014,submitted
+INV-019,V-008,Cluster Vendor,15000.00,2024-03-05,Operations,Service 2,user-014,USD,2024-03-05,OP007,5000,2024-03-06,REF019,PO019,bank_transfer,ACC014,submitted
+INV-020,V-008,Cluster Vendor,18000.00,2024-03-06,Operations,Service 3,user-014,USD,2024-03-06,OP007,5000,2024-03-07,REF020,PO020,bank_transfer,ACC014,submitted
+INV-021,V-008,Cluster Vendor,22000.00,2024-03-06,Operations,Service 4,user-014,USD,2024-03-06,OP007,5000,2024-03-07,REF021,PO021,bank_transfer,ACC014,submitted
+INV-022,V-008,Cluster Vendor,25000.00,2024-03-07,Operations,Service 5,user-014,USD,2024-03-07,OP007,5000,2024-03-08,REF022,PO022,bank_transfer,ACC014,submitted
+# QUARTER-END SPIKE - End of Q1 spending
+INV-023,V-009,Q4 Vendor,45000.00,2024-03-25,Finance,Q1 closing,user-015,USD,2024-03-25,FIN004,8000,2024-03-26,REF023,PO023,credit_card,ACC015,submitted
+INV-024,V-009,Q4 Vendor,38000.00,2024-03-26,Finance,Q1 adjustments,user-015,USD,2024-03-26,FIN004,8000,2024-03-27,REF024,PO024,credit_card,ACC015,submitted
+INV-025,V-009,Q4 Vendor,52000.00,2024-03-27,Finance,Q1 final,user-015,USD,2024-03-27,FIN004,8000,2024-03-28,REF025,PO025,credit_card,ACC015,submitted
+# CONCENTRATION RISK - Single vendor with high percentage of total spend
+INV-026,V-010,Dominant Vendor,150000.00,2024-03-28,Operations,Major contract,user-016,USD,2024-03-28,OP008,5000,2024-03-29,REF026,PO026,bank_transfer,ACC016,submitted
+INV-027,V-010,Dominant Vendor,125000.00,2024-03-29,Operations,Contract extension,user-016,USD,2024-03-29,OP008,5000,2024-03-30,REF027,PO027,bank_transfer,ACC016,submitted
+# COMMON ROUND NUMBER
+INV-028,V-011,Round Vendor,1000.00,2024-03-30,IT,Small software,user-017,USD,2024-03-30,IT005,6000,2024-03-31,REF028,PO028,credit_card,ACC017,submitted
+# JUST BELOW ANOTHER THRESHOLD
+INV-029,V-012,Threshold Vendor,9999.99,2024-03-31,Finance,Consulting,user-018,USD,2024-03-31,FIN005,8000,2024-04-01,REF029,PO029,bank_transfer,ACC018,submitted
+# SUSPICIOUS PATTERN - Same amount multiple times
+INV-030,V-013,Suspicious Vendor,12345.67,2024-04-01,Operations,Service A,user-019,USD,2024-04-01,OP009,5000,2024-04-02,REF030,PO030,credit_card,ACC019,submitted
+INV-031,V-013,Suspicious Vendor,12345.67,2024-04-02,Operations,Service B,user-019,USD,2024-04-02,OP009,5000,2024-04-03,REF031,PO031,credit_card,ACC019,submitted
+INV-032,V-013,Suspicious Vendor,12345.67,2024-04-03,Operations,Service C,user-019,USD,2024-04-03,OP009,5000,2024-04-04,REF032,PO032,credit_card,ACC019,submitted

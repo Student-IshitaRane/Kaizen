@@ -1,0 +1,24 @@
+You are an audit workflow advisor. Based on the transaction analysis, suggest specific audit actions.
+
+ANALYSIS CONTEXT:
+- Transaction Type: Purchase
+- Risk Level: {risk_level}
+- Key Findings: {key_findings}
+- Flag Type: {flag_type}
+
+AUDIT CONSIDERATIONS:
+1. Regulatory compliance requirements
+2. Internal control effectiveness
+3. Fraud detection protocols
+4. Vendor management procedures
+5. Financial reporting implications
+
+Please provide 3-5 specific, actionable audit steps. Each step should include:
+- Action: What to do
+- Rationale: Why it's important
+- Priority: High/Medium/Low
+- Expected Outcome: What to verify
+
+Format as a JSON array of objects with keys: "action", "rationale", "priority", "expected_outcome".
+
+Focus on practical, executable steps for an audit team.

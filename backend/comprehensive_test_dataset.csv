@@ -1,0 +1,53 @@
+invoice_id,vendor_id,vendor_name,amount,date,department,description,approver_id,currency,posting_date,cost_center,gl_account,approval_date,reference_number,po_number,payment_method,bank_account,status
+# HISTORICAL DATA - Last 6 months to establish patterns
+# Vendor V-001: ABC Corp - Normal spending pattern: $10,000-$20,000 per month
+INV-HIST-001,V-001,ABC Corp,12000.00,2023-10-15,Operations,Office supplies Q3,user-001,USD,2023-10-15,OP001,5000,2023-10-16,REF-H001,PO-H001,bank_transfer,ACC001,approved
+INV-HIST-002,V-001,ABC Corp,15000.00,2023-11-10,Operations,Monthly supplies,user-001,USD,2023-11-10,OP001,5000,2023-11-11,REF-H002,PO-H002,bank_transfer,ACC001,approved
+INV-HIST-003,V-001,ABC Corp,18000.00,2023-12-05,Operations,Year-end supplies,user-001,USD,2023-12-05,OP001,5000,2023-12-06,REF-H003,PO-H003,bank_transfer,ACC001,approved
+INV-HIST-004,V-001,ABC Corp,14000.00,2024-01-12,Operations,New year supplies,user-001,USD,2024-01-12,OP001,5000,2024-01-13,REF-H004,PO-H004,bank_transfer,ACC001,approved
+INV-HIST-005,V-001,ABC Corp,16000.00,2024-02-08,Operations,Feb supplies,user-001,USD,2024-02-08,OP001,5000,2024-02-09,REF-H005,PO-H005,bank_transfer,ACC001,approved
+# Vendor V-002: XYZ Ltd - IT spending: $5,000-$15,000 per month
+INV-HIST-006,V-002,XYZ Ltd,8000.00,2023-10-20,IT,Software license,user-002,USD,2023-10-20,IT001,6000,2023-10-21,REF-H006,PO-H006,credit_card,ACC002,approved
+INV-HIST-007,V-002,XYZ Ltd,12000.00,2023-11-18,IT,Cloud services,user-002,USD,2023-11-18,IT001,6000,2023-11-19,REF-H007,PO-H007,credit_card,ACC002,approved
+INV-HIST-008,V-002,XYZ Ltd,6000.00,2023-12-15,IT,Maintenance,user-002,USD,2023-12-15,IT001,6000,2023-12-16,REF-H008,PO-H008,credit_card,ACC002,approved
+INV-HIST-009,V-002,XYZ Ltd,10000.00,2024-01-22,IT,New software,user-002,USD,2024-01-22,IT001,6000,2024-01-23,REF-H009,PO-H009,credit_card,ACC002,approved
+INV-HIST-010,V-002,XYZ Ltd,9000.00,2024-02-14,IT,Support contract,user-002,USD,2024-02-14,IT001,6000,2024-02-15,REF-H010,PO-H010,credit_card,ACC002,approved
+# Vendor V-003: Tech Solutions - Occasional large purchases
+INV-HIST-011,V-003,Tech Solutions,35000.00,2023-11-05,Operations,Server hardware,user-003,USD,2023-11-05,OP002,5000,2023-11-06,REF-H011,PO-H011,bank_transfer,ACC003,approved
+INV-HIST-012,V-003,Tech Solutions,28000.00,2024-01-18,IT,Network equipment,user-003,USD,2024-01-18,IT002,6000,2024-01-19,REF-H012,PO-H012,bank_transfer,ACC003,approved
+# Dormant Vendor V-006: Old Vendor Co - Last transaction 200 days ago
+INV-HIST-013,V-006,Old Vendor Co,7500.00,2023-08-10,Finance,Consulting services,user-004,USD,2023-08-10,FIN001,8000,2023-08-11,REF-H013,PO-H013,credit_card,ACC004,approved
+
+# NEW TRANSACTIONS TO UPLOAD - These should trigger anomalies
+# 1. EXACT DUPLICATE (High risk: 40 points)
+INV-2024-001,V-001,ABC Corp,15000.00,2024-03-15,Operations,Office supplies,user-001,USD,2024-03-15,OP001,5000,2024-03-16,REF001,PO001,bank_transfer,ACC001,submitted
+# 2. VENDOR PAYMENT SPIKE (Medium risk: 15 points) - March spending $85,000 vs avg $15,000
+INV-2024-002,V-001,ABC Corp,45000.00,2024-03-18,Operations,Bulk order,user-001,USD,2024-03-18,OP001,5000,2024-03-19,REF002,PO002,bank_transfer,ACC001,submitted
+INV-2024-003,V-001,ABC Corp,40000.00,2024-03-20,HR,Training program,user-001,USD,2024-03-20,HR001,7000,2024-03-21,REF003,PO003,bank_transfer,ACC001,submitted
+# 3. ROUND NUMBER (Low risk: 15 points)
+INV-2024-004,V-004,New Vendor Inc,100000.00,2024-03-22,IT,Enterprise software,user-005,USD,2024-03-22,IT003,6000,2024-03-23,REF004,PO004,bank_transfer,ACC005,submitted
+# 4. WEEKEND POSTING (Low risk: 10 points) - Saturday
+INV-2024-005,V-002,XYZ Ltd,12000.00,2024-03-23,IT,Weekend support,user-002,USD,2024-03-23,IT001,6000,2024-03-25,REF005,PO005,credit_card,ACC002,submitted
+# 5. RAPID REPEAT PAYMENTS (Medium risk: 15 points) - 3 payments in 24 hours
+INV-2024-006,V-003,Tech Solutions,15000.00,2024-03-24,Operations,Software A,user-003,USD,2024-03-24,OP002,5000,2024-03-25,REF006,PO006,bank_transfer,ACC003,submitted
+INV-2024-007,V-003,Tech Solutions,18000.00,2024-03-24,Operations,Software B,user-003,USD,2024-03-24,OP002,5000,2024-03-25,REF007,PO007,bank_transfer,ACC003,submitted
+INV-2024-008,V-003,Tech Solutions,22000.00,2024-03-24,IT,Hardware,user-003,USD,2024-03-24,IT002,6000,2024-03-25,REF008,PO008,bank_transfer,ACC003,submitted
+# 6. THRESHOLD AVOIDANCE (Medium risk: 25 points) - Just below $10,000 approval threshold
+INV-2024-009,V-005,Threshold Vendor,9999.99,2024-03-25,Finance,Consulting,user-006,USD,2024-03-25,FIN002,8000,2024-03-26,REF009,PO009,bank_transfer,ACC006,submitted
+# 7. DORMANT VENDOR (Medium risk: 15 points) - Reactivated after 200+ days
+INV-2024-010,V-006,Old Vendor Co,8500.00,2024-03-26,Finance,Reactivated services,user-004,USD,2024-03-26,FIN001,8000,2024-03-27,REF010,PO010,credit_card,ACC004,submitted
+# 8. UNUSUAL AMOUNT (Medium risk: 20 points) - Statistical outlier for vendor
+INV-2024-011,V-002,XYZ Ltd,45000.00,2024-03-27,IT,Major upgrade,user-002,USD,2024-03-27,IT001,6000,2024-03-28,REF011,PO011,credit_card,ACC002,submitted
+# 9. TEMPORAL CLUSTERING (Medium risk: 10 points) - 5 transactions in 3 days
+INV-2024-012,V-007,Cluster Vendor,12000.00,2024-03-28,Operations,Service 1,user-007,USD,2024-03-28,OP003,5000,2024-03-29,REF012,PO012,bank_transfer,ACC007,submitted
+INV-2024-013,V-007,Cluster Vendor,15000.00,2024-03-28,Operations,Service 2,user-007,USD,2024-03-28,OP003,5000,2024-03-29,REF013,PO013,bank_transfer,ACC007,submitted
+INV-2024-014,V-007,Cluster Vendor,18000.00,2024-03-29,Operations,Service 3,user-007,USD,2024-03-29,OP003,5000,2024-03-30,REF014,PO014,bank_transfer,ACC007,submitted
+INV-2024-015,V-007,Cluster Vendor,22000.00,2024-03-29,Operations,Service 4,user-007,USD,2024-03-29,OP003,5000,2024-03-30,REF015,PO015,bank_transfer,ACC007,submitted
+INV-2024-016,V-007,Cluster Vendor,25000.00,2024-03-30,Operations,Service 5,user-007,USD,2024-03-30,OP003,5000,2024-03-31,REF016,PO016,bank_transfer,ACC007,submitted
+# 10. QUARTER-END SPIKE (Low risk: 8 points) - End of Q1
+INV-2024-017,V-008,Q1 Vendor,48000.00,2024-03-28,Finance,Q1 closing,user-008,USD,2024-03-28,FIN003,8000,2024-03-29,REF017,PO017,credit_card,ACC008,submitted
+INV-2024-018,V-008,Q1 Vendor,52000.00,2024-03-29,Finance,Q1 adjustments,user-008,USD,2024-03-29,FIN003,8000,2024-03-30,REF018,PO018,credit_card,ACC008,submitted
+# 11. CONCENTRATION RISK (High risk: 20 points) - Single vendor 35% of total spend
+INV-2024-019,V-009,Dominant Vendor,125000.00,2024-03-30,Operations,Major contract,user-009,USD,2024-03-30,OP004,5000,2024-03-31,REF019,PO019,bank_transfer,ACC009,submitted
+# 12. COMMON ROUND NUMBER (Low risk: 15 points)
+INV-2024-020,V-010,Small Vendor,1000.00,2024-03-31,IT,Minor software,user-010,USD,2024-03-31,IT004,6000,2024-04-01,REF020,PO020,credit_card,ACC010,submitted
